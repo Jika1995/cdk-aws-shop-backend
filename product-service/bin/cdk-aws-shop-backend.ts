@@ -51,3 +51,4 @@ api.addRoutes({
     path: '/products/{productId}',
     methods: [apiGateway.HttpMethod.GET]
 })
+
