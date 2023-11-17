@@ -1,0 +1,76 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "ProductApi",
+    "version" : "2023-11-16 13:58:33UTC"
+  },
+  "servers" : [ {
+    "url" : "https://ghu4ltja4b.execute-api.us-east-1.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : ""
+      }
+    }
+  } ],
+  "tags" : [ {
+    "name" : "aws:cloudformation:stack-id",
+    "x-amazon-apigateway-tag-value" : "arn:aws:cloudformation:us-east-1:389611717895:stack/ProductServiceStack/ca9cf0e0-847f-11ee-b77b-0e8ae26b5b71"
+  }, {
+    "name" : "aws:cloudformation:stack-name",
+    "x-amazon-apigateway-tag-value" : "ProductServiceStack"
+  }, {
+    "name" : "aws:cloudformation:logical-id",
+    "x-amazon-apigateway-tag-value" : "ProductApi63AD160A"
+  } ],
+  "paths" : {
+    "/products" : {
+      "get" : {
+        "responses" : {
+          "default" : {
+            "description" : "Default response for GET /products"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "payloadFormatVersion" : "2.0",
+          "type" : "aws_proxy",
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:389611717895:function:getProductsList/invocations",
+          "connectionType" : "INTERNET"
+        }
+      }
+    },
+    "/products/{productId}" : {
+      "get" : {
+        "responses" : {
+          "default" : {
+            "description" : "Default response for GET /products/{productId}"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "payloadFormatVersion" : "2.0",
+          "type" : "aws_proxy",
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:389611717895:function:getProductById/invocations",
+          "connectionType" : "INTERNET"
+        }
+      },
+      "parameters" : [ {
+        "name" : "productId",
+        "in" : "path",
+        "description" : "Generated path parameter for productId",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    }
+  },
+  "x-amazon-apigateway-cors" : {
+    "allowMethods" : [ "*" ],
+    "allowHeaders" : [ "*" ],
+    "maxAge" : -42,
+    "allowCredentials" : false,
+    "allowOrigins" : [ "*" ]
+  },
+  "x-amazon-apigateway-importexport-version" : "1.0"
+}
