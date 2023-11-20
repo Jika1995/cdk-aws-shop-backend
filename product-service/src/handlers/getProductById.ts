@@ -1,20 +1,34 @@
-import { PRODUCTS } from '../constants';
+// import { PRODUCTS } from '../constants';
 import { buildResponse } from '../utils'
+import * as AWS from 'aws-sdk';
+
+const db = new AWS.DynamoDB.DocumentClient()
 
 export const handler = async (event: any = {}) => {
     const itemId = event.pathParameters.productId;
-    console.log(event.pathParameters, event);
 
     if (!itemId) {
         return buildResponse(400, 'Error: you are missing the path parameter id')
     }
 
-    const itemToFind = PRODUCTS.find((item) => item.id === itemId)
+    const params = {
+        TableName: 'products',
+        Key: {
+            id: itemId
+        }
+    }
 
     try {
-        return buildResponse(200,
-            itemToFind
-        );
+        const response = await db.get(params).promise();
+
+        if (response.Item) {
+            return buildResponse(200,
+                response.Item
+            );
+        } else {
+            return buildResponse(404, 'Not found')
+        }
+
     } catch (err: unknown) {
         return buildResponse(500, {
             err
