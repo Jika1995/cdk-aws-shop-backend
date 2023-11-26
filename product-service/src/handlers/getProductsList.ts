@@ -5,6 +5,8 @@ import * as AWS from 'aws-sdk';
 const db = new AWS.DynamoDB.DocumentClient()
 
 const getFromTable = async (arg: string) => {
+    console.log(arg);
+
     const params = {
         TableName: arg
     }
@@ -12,7 +14,9 @@ const getFromTable = async (arg: string) => {
     return response.Items
 }
 
-export const handler = async () => {
+export const handler = async (event: any = {}) => {
+
+    console.log(`Request: ${event}`);
 
     try {
 

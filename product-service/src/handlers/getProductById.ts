@@ -5,6 +5,8 @@ import * as AWS from 'aws-sdk';
 const db = new AWS.DynamoDB.DocumentClient()
 
 export const handler = async (event: any = {}) => {
+    console.log(`Request: ${event}`);
+
     const itemId = event.pathParameters.productId;
 
     if (!itemId) {
